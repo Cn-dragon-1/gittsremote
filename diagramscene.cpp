@@ -171,7 +171,7 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
             startItems.first() != endItems.first()) {
             DiagramItem *startItem = qgraphicsitem_cast<DiagramItem *>(startItems.first());
             DiagramItem *endItem = qgraphicsitem_cast<DiagramItem *>(endItems.first());
-            Arrow *arrow = new Arrow(startItem, endItem);
+            Arrow *arrow = new Arrow(startItem, endItem);//draw arrow
             arrow->setColor(myLineColor);
             startItem->addArrow(arrow);
             endItem->addArrow(arrow);

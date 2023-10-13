@@ -18,7 +18,7 @@ MainWindow::MainWindow()
     createToolBox();
     createMenus();
 
-    scene = new DiagramScene(itemMenu, this);
+    scene = new DiagramScene(itemMenu, this);//must have a scene to save items firstly.
     scene->setSceneRect(QRectF(0, 0, 5000, 5000));
     connect(scene, &DiagramScene::itemInserted,
             this, &MainWindow::itemInserted);
@@ -30,7 +30,7 @@ MainWindow::MainWindow()
 
     QHBoxLayout *layout = new QHBoxLayout;
     layout->addWidget(toolBox);
-    view = new QGraphicsView(scene);
+    view = new QGraphicsView(scene);//items in scene will be display in view in next loop. If you want update imediatly,you should use QGraphicsView::viewport()->update().
     layout->addWidget(view);
 
     QWidget *widget = new QWidget;
@@ -154,8 +154,8 @@ void MainWindow::sendToBack()
 void MainWindow::itemInserted(DiagramItem *item)
 {
     pointerTypeGroup->button(int(DiagramScene::MoveItem))->setChecked(true);
-    scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));
-    buttonGroup->button(int(item->diagramType()))->setChecked(false);
+    scene->setMode(DiagramScene::Mode(pointerTypeGroup->checkedId()));//enum Mode { InsertItem, InsertLine, InsertText, MoveItem };
+    buttonGroup->button(int(item->diagramType()))->setChecked(false); //enum DiagramType { Step, Conditional, StartEnd, Io };
 }
 //! [7]
 
@@ -480,7 +480,7 @@ void MainWindow::createToolbars()
     linePointerButton->setIcon(QIcon(":/images/linepointer.png"));
 
     pointerTypeGroup = new QButtonGroup(this);
-    pointerTypeGroup->addButton(pointerButton, int(DiagramScene::MoveItem));
+    pointerTypeGroup->addButton(pointerButton, int(DiagramScene::MoveItem));        //enum Mode { InsertItem, InsertLine, InsertText, MoveItem };
     pointerTypeGroup->addButton(linePointerButton, int(DiagramScene::InsertLine));
     connect(pointerTypeGroup, QOverload<QAbstractButton *>::of(&QButtonGroup::buttonClicked),
             this, &MainWindow::pointerGroupClicked);

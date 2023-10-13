@@ -26,17 +26,17 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
             path.lineTo(200, 25);
             myPolygon = path.toFillPolygon();
             break;
-        case Conditional:
+        case Conditional://conditional
             myPolygon << QPointF(-100, 0) << QPointF(0, 100)
                       << QPointF(100, 0) << QPointF(0, -100)
                       << QPointF(-100, 0);
             break;
-        case Step:
+        case Step://process
             myPolygon << QPointF(-100, -100) << QPointF(100, -100)
                       << QPointF(100, 100) << QPointF(-100, 100)
                       << QPointF(-100, -100);
             break;
-        default:
+        default://Input/Output
             myPolygon << QPointF(-120, -80) << QPointF(-70, 80)
                       << QPointF(120, 80) << QPointF(70, -80)
                       << QPointF(-120, -80);
