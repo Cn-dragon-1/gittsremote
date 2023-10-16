@@ -56,10 +56,9 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
 
     QPen myPen = pen();
     myPen.setColor(myColor);
-    qreal arrowSize = 20;
+    qreal arrowSize = 20;//set arrow head size
     painter->setPen(myPen);
     painter->setBrush(myColor);
-//! [4] //! [5]
 
     QLineF centerLine(myStartItem->pos(), myEndItem->pos());
     QPolygonF endPolygon = myEndItem->polygon();
@@ -75,7 +74,7 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
         p1 = p2;
     }
 
-    setLine(QLineF(intersectPoint, myStartItem->pos()));
+    setLine(QLineF(intersectPoint, myStartItem->pos()));//draw center line
 //! [5] //! [6]
 
     double angle = std::atan2(-line().dy(), line().dx());
@@ -88,8 +87,8 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     arrowHead.clear();
     arrowHead << line().p1() << arrowP1 << arrowP2;
 //! [6] //! [7]
-    painter->drawLine(line());
-    painter->drawPolygon(arrowHead);
+    painter->drawLine(line());//draw center line
+    painter->drawPolygon(arrowHead);//draw arrow head
     if (isSelected()) {
         painter->setPen(QPen(myColor, 1, Qt::DashLine));
         QLineF myLine = line();
@@ -98,5 +97,6 @@ void Arrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
         myLine.translate(0,-8.0);
         painter->drawLine(myLine);
     }
+
 }
 //! [7]

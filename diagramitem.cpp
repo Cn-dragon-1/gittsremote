@@ -111,4 +111,9 @@ QVariant DiagramItem::itemChange(GraphicsItemChange change, const QVariant &valu
 
     return value;
 }
+
+DiagramItem::DiagramType DiagramItem::getItemType()
+{
+    return myDiagramType;
+}
 //! [6]

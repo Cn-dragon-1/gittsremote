@@ -7,6 +7,10 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QTextCursor>
 
+#include <QMessageBox>
+
+#include "diagramitem.h"
+
 //! [0]
 DiagramScene::DiagramScene(QMenu *itemMenu, QObject *parent)
     : QGraphicsScene(parent)
@@ -154,16 +158,15 @@ void DiagramScene::mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent)
 void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     if (line != nullptr && myMode == InsertLine) {
-        QList<QGraphicsItem *> startItems = items(line->line().p1());
+        QList<QGraphicsItem *> startItems = items(line->line().p1());//get the items under the start point of the line's p1
         if (startItems.count() && startItems.first() == line)
             startItems.removeFirst();
-        QList<QGraphicsItem *> endItems = items(line->line().p2());
+        QList<QGraphicsItem *> endItems = items(line->line().p2());  //get the items under the start point of the line's p2
         if (endItems.count() && endItems.first() == line)
             endItems.removeFirst();
 
         removeItem(line);
         delete line;
-//! [11] //! [12]
 
         if (startItems.count() > 0 && endItems.count() > 0 &&
             startItems.first()->type() == DiagramItem::Type &&
@@ -183,6 +186,20 @@ void DiagramScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent)
 //! [12] //! [13]
     line = nullptr;
     QGraphicsScene::mouseReleaseEvent(mouseEvent);
+}
+
+void DiagramScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    QGraphicsItem *item = itemAt(mouseEvent->scenePos(), QTransform());
+
+    if (dynamic_cast<DiagramItem *>(item)->getItemType()==DiagramItem::Conditional) {
+        QMessageBox msgBox;
+        msgBox.setText("The document has been modified.");
+        msgBox.exec();
+    }
+
+
+    QGraphicsScene::mouseDoubleClickEvent(mouseEvent);
 }
 //! [13]
 

@@ -52,6 +52,8 @@ protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
+
 private:
     bool isItemChange(int type) const;
 
